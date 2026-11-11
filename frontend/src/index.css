@@ -647,8 +647,6 @@ select:focus {
    CUSTOMER DASHBOARD
 ========================================= */
 
-/* Matches the actual CustomerDashboard.jsx className="search-form" */
-
 .search-form,
 .customer-search-form {
   display: grid;
@@ -738,6 +736,25 @@ select:focus {
 
 .restaurant-card button:hover {
   background: var(--primary-light);
+}
+
+/* =========================================
+   RESTAURANT SEARCH HIGHLIGHT
+========================================= */
+
+.restaurant-card.highlighted-card {
+  border: 2px solid var(--copper);
+  background: #fff8ed;
+  box-shadow: 0 8px 25px rgba(200, 121, 82, 0.22);
+  transform: translateY(-3px);
+}
+
+.highlighted-restaurant {
+  color: #a65d35;
+  font-weight: 800;
+  background: #f8e5d6;
+  padding: 3px 7px;
+  border-radius: 5px;
 }
 
 /* =========================================

@@ -28,6 +28,7 @@ function CustomerDashboard() {
       const response = await api.get("/restaurants", { params });
 
       setRestaurants(response.data.restaurants || []);
+      setError("");
     } catch {
       setError("Unable to load restaurants.");
     }
@@ -36,7 +37,6 @@ function CustomerDashboard() {
   const fetchMyReviews = async () => {
     try {
       const response = await api.get("/reviews/my-reviews");
-
       setReviews(response.data.reviews || []);
     } catch {
       setError("Unable to load your reviews.");
@@ -236,6 +236,15 @@ function CustomerDashboard() {
     navigate("/");
   };
 
+  const isMatchingRestaurant = (restaurantName) => {
+    return (
+      search.trim().length > 0 &&
+      restaurantName
+        .toLowerCase()
+        .includes(search.trim().toLowerCase())
+    );
+  };
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -288,12 +297,26 @@ function CustomerDashboard() {
             restaurant._id
           );
 
+          const isHighlighted = isMatchingRestaurant(
+            restaurant.name
+          );
+
           return (
             <div
-              className="restaurant-card"
+              className={`restaurant-card ${
+                isHighlighted ? "highlighted-card" : ""
+              }`}
               key={restaurant._id}
             >
-              <h3>{restaurant.name}</h3>
+              <h3>
+                {isHighlighted ? (
+                  <span className="highlighted-restaurant">
+                    {restaurant.name}
+                  </span>
+                ) : (
+                  restaurant.name
+                )}
+              </h3>
 
               <p>{restaurant.cuisine}</p>
               <p>{restaurant.location}</p>
